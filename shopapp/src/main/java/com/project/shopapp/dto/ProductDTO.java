@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.multipart.MultipartFile;
 
 @Setter
 @Getter
@@ -29,6 +30,8 @@ public class ProductDTO {
 
     private String description;
 
-    @JsonProperty("category_id") // trong giao thức
-    private String categoryId ;  // trong java
+    @JsonProperty("category_id") // tên thuộc tính trong json - lúc test
+    private String categoryId ;  // tên thuộc tính trong java
+
+    private MultipartFile file;
 }
