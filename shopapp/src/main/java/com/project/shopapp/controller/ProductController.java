@@ -35,17 +35,15 @@ public class ProductController {
 }
  */
     @GetMapping( "")
-    public ResponseEntity<String> getAllProducts(
-            @RequestParam("page") int page,
-            @RequestParam("limit") int limit
+    public ResponseEntity<?> getAllProducts(
+            @Valid @RequestBody ProductDTO productDTO
 
     ){
         return ResponseEntity.ok("show all ok");
     }
     @PostMapping(value="", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> insertProduct(
-            @Valid @RequestBody ProductDTO productDTO,
-//            @RequestPart("file") MultipartFile file,
+            @Valid @ModelAttribute ProductDTO productDTO,
             BindingResult result
     ){
         // trả về mess báo lỗi
@@ -64,7 +62,7 @@ public class ProductController {
                 if(contentType == null || !contentType.startsWith("image/"))
                     return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).body("not support");
             }
-            String fileName = storeFile(file);
+//            String fileName = storeFile(file);
             return ResponseEntity.ok("ok");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
