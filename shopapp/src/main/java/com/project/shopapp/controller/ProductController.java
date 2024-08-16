@@ -36,10 +36,7 @@ public class ProductController {
 }
  */
     @GetMapping("")
-    public ResponseEntity<?> getAllProducts(
-            @Valid @RequestBody ProductDTO productDTO
-
-    ) {
+    public ResponseEntity<?> getAllProducts() {
         return ResponseEntity.ok("show all ok");
     }
 
