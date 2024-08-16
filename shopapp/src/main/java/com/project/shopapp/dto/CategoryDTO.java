@@ -8,7 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @Setter
 @Getter
-public class CatogeryDTO {
+public class CategoryDTO {
     @NotEmpty (message = "cant empty")
     private String name;
 }
