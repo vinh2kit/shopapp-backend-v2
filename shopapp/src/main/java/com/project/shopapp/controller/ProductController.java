@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -34,21 +35,22 @@ public class ProductController {
     "category_id" : "1"
 }
  */
-    @GetMapping( "")
+    @GetMapping("")
     public ResponseEntity<?> getAllProducts(
             @Valid @RequestBody ProductDTO productDTO
 
-    ){
+    ) {
         return ResponseEntity.ok("show all ok");
     }
-    @PostMapping(value="", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+
+    @PostMapping(value = "", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> insertProduct(
             @Valid @ModelAttribute ProductDTO productDTO,
             BindingResult result
-    ){
+    ) {
         // trả về mess báo lỗi
         try {
-            if(result.hasErrors()) {
+            if (result.hasErrors()) {
                 List<String> errorMessages = result.getFieldErrors()
                         .stream()
                         .map(FieldError::getDefaultMessage)
@@ -56,14 +58,15 @@ public class ProductController {
                 return ResponseEntity.badRequest().body(errorMessages);
             }
             // kiểm tra file
-            MultipartFile file = productDTO.getFile();
-            if(file != null){
+            List<MultipartFile> files = productDTO.getFile();
+            files = files == null ? new ArrayList<>() : files; // nếu null thi trả về list rỗng cho lúc xet contentType bắt ngoại lệ
+            for (MultipartFile file : files) {
                 String contentType = file.getContentType();
-                if(contentType == null || !contentType.startsWith("image/"))
-                    return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).body("not support");
+                if (contentType == null || !contentType.startsWith("image/"))
+                    return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).body("not found or not support");
+                String fileName = storeFile(file);
             }
-//            String fileName = storeFile(file);
-            return ResponseEntity.ok("ok");
+            return ResponseEntity.ok(" upload ok");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -78,7 +81,7 @@ public class ProductController {
         // Thêm UUID vào trước tên file để đảm bảo tên file là duy nhất
         String uniqueFilename = UUID.randomUUID().toString() + "_" + filename;
         // Đường dẫn đến thư mục mà bạn muốn lưu file
-        java.nio.file.Path uploadDir = Paths.get("uploads");
+        java.nio.file.Path uploadDir = Paths.get("images/products"); //shopapp/uploads
         // Kiểm tra và tạo thư mục nếu nó không tồn tại
         if (!Files.exists(uploadDir)) {
             Files.createDirectories(uploadDir);
@@ -91,11 +94,12 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateProduct(@PathVariable long id){
+    public ResponseEntity<String> updateProduct(@PathVariable long id) {
         return ResponseEntity.ok("updated " + id);
     }
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteProduct(@PathVariable long id){
+    public ResponseEntity<String> deleteProduct(@PathVariable long id) {
         return ResponseEntity.ok("deleted " + id);
     }
 }
