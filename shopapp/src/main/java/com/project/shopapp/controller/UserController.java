@@ -15,7 +15,7 @@ public class UserController {
     public ResponseEntity<?> register(
             @Valid @RequestBody UserDTO userDTO) {
         try {
-            if(!userDTO.getPassword().equals(userDTO.getRepeatPassword())
+            if(!userDTO.getPassword().equals(userDTO.getRepeatPassword()))
                 return ResponseEntity.badRequest().body("repeat password wrong");
             return ResponseEntity.ok("register ok");
         } catch (Exception e) {
