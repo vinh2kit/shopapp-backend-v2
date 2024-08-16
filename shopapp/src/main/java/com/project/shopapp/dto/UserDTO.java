@@ -33,7 +33,7 @@ public class UserDTO {
     private int facebookAccountId;
     @JsonProperty("google_account_id")
     private int googleAccountId;
-
-    private long id;
+    @JsonProperty("role_id")
+    private Long roleId;
 
 }

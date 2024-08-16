@@ -22,14 +22,14 @@ public class ProductDTO {
 
     @Min(value = 0, message = "cant below 0")
     @Max(value = 50000000,message = "cant higher 50 millions VND")
-    private float price;
+    private Float price;
 
     private String thumbnail;
 
     private String description;
 
     @JsonProperty("category_id") // tên thuộc tính trong json - lúc test
-    private String categoryId ;  // tên thuộc tính trong java
+    private Long categoryId ;  // tên thuộc tính trong java
 
     private List<MultipartFile> file;
 }

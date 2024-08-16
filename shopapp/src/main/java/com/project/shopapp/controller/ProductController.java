@@ -91,12 +91,12 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateProduct(@PathVariable long id) {
+    public ResponseEntity<String> updateProduct(@PathVariable Long id) {
         return ResponseEntity.ok("updated " + id);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteProduct(@PathVariable long id) {
+    public ResponseEntity<String> deleteProduct(@PathVariable Long id) {
         return ResponseEntity.ok("deleted " + id);
     }
 }
