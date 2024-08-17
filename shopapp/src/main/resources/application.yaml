@@ -8,8 +8,15 @@ spring:
     username: root
     password:
     driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    show-sql: true  # show sql query
+    hibernate:
+      ddl-auto: none  # đảm bảo hiber k can thiệp tạo/xóa bảng, nên làm thủ công
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect # giúp Hibernate biết rằng nó nên tạo các câu lệnh SQL phù hợp với MySQL 8
+        format_sql: true
   servlet:
-#    file upload size
-    multipart:
+    multipart:  #    file upload size
       max-file-size: 10MB
       max-request-size: 10MB
