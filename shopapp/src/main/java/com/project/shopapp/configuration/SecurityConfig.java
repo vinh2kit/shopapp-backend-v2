@@ -20,18 +20,23 @@ public class SecurityConfig {
     private final UserRepository userRepository;
     //user's detail object
     @Bean
-    public UserDetailsService userDetailsService() { // đag setup trường phoneNumber chính là username
-        return phoneNumber -> userRepository
+    public UserDetailsService userDetailsService() {
+        return phoneNumber -> userRepository // đag setup trường phoneNumber chính là username
                 .findByPhoneNumber(phoneNumber)
                 .orElseThrow(() ->
                         new UsernameNotFoundException(
                                 "Cannot find user with phone number = "+phoneNumber));
     }
+
     @Bean
+    // xác định cách thức mã hoóa
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+
     @Bean
+    // xác định cấu hình
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(userDetailsService());
@@ -39,6 +44,7 @@ public class SecurityConfig {
         return authProvider;
     }
     @Bean
+    // cung cấp một instance của AuthenticationManager
     public AuthenticationManager authenticationManager(
             AuthenticationConfiguration config
     ) throws Exception {
