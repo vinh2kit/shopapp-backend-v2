@@ -60,7 +60,7 @@ public class User extends BaseEntity implements UserDetails {
         return authorityList;
     }
     @Override
-    public String getUsername() {
+    public String getUsername() {// đag setup trường phoneNumber chính là username
         return phoneNumber;
     }
 
