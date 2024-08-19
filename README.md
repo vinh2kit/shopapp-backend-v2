@@ -1,3 +1,8 @@
-  <img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" alt="Loading" style="height: 1 em; width: auto; vertical-align: middle;" />
-</span>
-# ShopApp v2 - Developing ...<span>
+# Welcome ShopApp v2
+- Main function:
+  - CRUD, search, sort, pagination for product
+  - Register, login return jwt, encrypt password with spring security
+  - Authentication, authorization, filter token
+  - Shopping cart, order 
+<h3> * Description</h3>
+ <p>My website offers an online shopping experience with home delivery. You can easily search for products, customize quantities, and place orders. Registering and logging in allow you to save orders and track your order information conveniently.</p>
