@@ -36,7 +36,8 @@ public class SecurityConfig {
 
 
     @Bean
-    // xác định cấu hình
+    // thằng này có nhiệm vụ xác định tài khoản, mật khẩu có đuúng k.
+    // (nó giaải mã mật khẩu rồi so sánh)
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(userDetailsService());
@@ -44,7 +45,7 @@ public class SecurityConfig {
         return authProvider;
     }
     @Bean
-    // cung cấp một instance của AuthenticationManager
+    // cung cấp một instance của AuthenticationManager (sử dụng Prodvider để xác thực)
     public AuthenticationManager authenticationManager(
             AuthenticationConfiguration config
     ) throws Exception {

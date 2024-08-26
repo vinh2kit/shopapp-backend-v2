@@ -69,12 +69,12 @@ public class UserService implements IUserService {
         if(optionalUser.isEmpty()) {
             throw new Exception("wrong phone number or password");
         }
-        //return optionalUser.get();//muốn trả JWT token ?
+        //return optionalUser.get();
         User existingUser = optionalUser.get();
         //check password
         if (existingUser.getFacebookAccountId() == 0
                 && existingUser.getGoogleAccountId() == 0) {
-            if(!passwordEncoder.matches(password, existingUser.getPassword())) {
+                if(!passwordEncoder.matches(password, existingUser.getPassword())) {
                 throw new BadCredentialsException("wrong phone number or password");
             }
         }

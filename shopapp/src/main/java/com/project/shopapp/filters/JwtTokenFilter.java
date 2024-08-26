@@ -39,7 +39,8 @@ public class JwtTokenFilter extends OncePerRequestFilter{
                 filterChain.doFilter(request, response); //enable bypass
                 return;
             }
-//            Authorization là đóối tượng trong đó JJWT thiết kế nội dung định dạng Bearer <token> (OAuth 2.0), trong đó Bearer là một tiền tố chỉ loại token và <token> là giá trị token thực tế.
+//            Authorization là đóối tượng trong đó JJWT thiết kế nội dung định dạng Bearer <token> (OAuth 2.0),
+//            trong đó Bearer là một tiền tố chỉ loại token và <token> là giá trị token thực tế.
             final String authHeader = request.getHeader("Authorization");
             if (authHeader == null || !authHeader.startsWith("Bearer ")) { // xem đúng định dạng k, có thể là gia mạo nếu k đúng đinh dạng
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
@@ -50,7 +51,8 @@ public class JwtTokenFilter extends OncePerRequestFilter{
             if (phoneNumber != null
                     && SecurityContextHolder.getContext().getAuthentication() == null) { // (getContext() là thông tin xaác thực hiện có) rồi thử lấy đối tươnng Authentication chứa thông tin về người dùng đã xác thực (như tên người dùng, quyền truy cập,... giúp kiểm tra xem token của thằng này xác thực chưa(nó được lưu lại trong phiên làm việc hoặc trên cookie
                 User userDetails = (User) userDetailsService.loadUserByUsername(phoneNumber);
-                if(jwtTokenUtil.validateToken(token, userDetails)) { // xem còn hạn k, rồi tạo đối tuượng đại diện Authentication chứa thông tin như phía trên đã nói
+                if(jwtTokenUtil.validateToken(token, userDetails)) { // xem còn hạn hay hợp lệ k
+                    // rồi tạo đối tuượng đại diện Authentication chứa thông tin như phía trên đã nói
                     UsernamePasswordAuthenticationToken authenticationToken =
                             new UsernamePasswordAuthenticationToken(
                                     userDetails,
